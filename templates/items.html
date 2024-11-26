@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품목 관리</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <h1>품목 관리</h1>
+
+    <!-- 품목 추가 -->
+    <h2>품목 추가</h2>
+    <form method="POST" action="{{ url_for('items.manage_items') }}">
+        <label for="item_name">품목 이름:</label>
+        <input type="text" id="item_name" name="item_name" placeholder="예: 단팥빵" required>
+        
+        <label for="shelf_life">유통기한 (일):</label>
+        <input type="number" id="shelf_life" name="shelf_life" placeholder="예: 7" required>
+
+        <label for="storage_method">보관방법:</label>
+        <input type="text" id="storage_method" name="storage_method" placeholder="예: 냉장 보관" required>
+        
+        <button type="submit">추가</button>
+    </form>
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <!-- 품목 리스트 -->
+    <h2>품목 리스트</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>품목 이름</th>
+                <th>유통기한 (일)</th>
+                <th>보관방법</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for id, item_name, shelf_life, storage_method in items %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ item_name }}</td>
+                <td>{{ shelf_life }}</td>
+                <td>{{ storage_method }}</td>
+                <td>
+                    <a href="{{ url_for('items.delete_item', item_id=id) }}">삭제</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

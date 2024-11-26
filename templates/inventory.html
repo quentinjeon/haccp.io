@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재고 관리</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <h1>재고 관리</h1>
+
+    <!-- 재고 테이블 -->
+    <h2>현재 재고</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>항목</th>
+                <th>재고 수량</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item, total_quantity in inventory_data %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>{{ total_quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
